@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS students (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(128),
+    age INTEGER,
+    city VARCHAR(128)
+);
