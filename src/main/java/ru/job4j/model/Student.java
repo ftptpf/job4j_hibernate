@@ -1,4 +1,4 @@
-package model;
+package ru.job4j.model;
 
 import jakarta.persistence.*;
 
@@ -13,14 +13,12 @@ public class Student {
     private int age;
     private String city;
 
-    public Student() {
-    }
-
-    public Student(int id, String name, int age, String city) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.city = city;
+    public static Student of(String name, int age, String city) {
+        Student student = new Student();
+        student.name = name;
+        student.age = age;
+        student.city = city;
+        return student;
     }
 
     public int getId() {
