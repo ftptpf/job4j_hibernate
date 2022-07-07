@@ -1,12 +1,18 @@
 package ru.job4j;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaUpdate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.MutationQuery;
 import org.hibernate.query.Query;
+import org.hibernate.query.sqm.internal.QuerySqmImpl;
 import ru.job4j.model.Student;
+
+import java.util.UUID;
 
 public class HbmRun {
     public static void main(String[] args) {
@@ -33,12 +39,20 @@ public class HbmRun {
             studentQuery.setParameter("fId", 2);
             System.out.println(studentQuery.getSingleResult());
 
-            Query<Student> studentQueryUpdate = session.createQuery(
-                    "update Student s set s.age = :newAge, s.city = :newCity where s.id = :fId", Student.class);
+/*            MutationQuery studentQueryUpdate = session.createMutationQuery(
+                    "update Student s set s.age = :newAge, s.city = :newCity where s.id = :fId");
             studentQueryUpdate.setParameter("newAge", 22);
             studentQueryUpdate.setParameter("newCity", "London");
             studentQueryUpdate.setParameter("fId", 1);
-            studentQueryUpdate.executeUpdate();
+            studentQueryUpdate.executeUpdate();*/
+
+            session.createMutationQuery("update Student s set s.age = :newAge, s.city = :newCity where s.id = :fId")
+                    .setParameter("newAge", 23)
+                    .setParameter("newCity", "Saratov")
+                    .setParameter("fId", 1)
+                    .executeUpdate();
+
+
 
 
 
