@@ -1,20 +1,15 @@
 package ru.job4j;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaUpdate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.query.MutationQuery;
 import org.hibernate.query.Query;
-import org.hibernate.query.sqm.internal.QuerySqmImpl;
 import ru.job4j.model.Student;
 
-import java.util.UUID;
 
-public class HbmRun {
+public class HbmStudentRun {
     public static void main(String[] args) {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
         try {
@@ -22,29 +17,21 @@ public class HbmRun {
             Session session = sf.openSession();
             session.beginTransaction();
 
-/*            Student one = Student.of("Alex", 21, "Moscow");
+            Student one = Student.of("Alex", 21, "Moscow");
             Student two = Student.of("Nikolay", 28, "Saint-Petersburg");
             Student three = Student.of("Nikita", 25, "Kaliningrad");
 
             session.persist(one);
             session.persist(two);
-            session.persist(three);*/
+            session.persist(three);
 
             Query<Student> query = session.createQuery("from Student ", Student.class);
             for (Object st : query.list()) {
                 System.out.println(st);
             }
-
             Query<Student> studentQuery = session.createQuery("from Student s where s.id = :fId", Student.class);
             studentQuery.setParameter("fId", 2);
             System.out.println(studentQuery.getSingleResult());
-
-/*            MutationQuery studentQueryUpdate = session.createMutationQuery(
-                    "update Student s set s.age = :newAge, s.city = :newCity where s.id = :fId");
-            studentQueryUpdate.setParameter("newAge", 22);
-            studentQueryUpdate.setParameter("newCity", "London");
-            studentQueryUpdate.setParameter("fId", 1);
-            studentQueryUpdate.executeUpdate();*/
 
             session.createMutationQuery("update Student s set s.age = :newAge, s.city = :newCity where s.id = :fId")
                     .setParameter("newAge", 23)
@@ -52,12 +39,15 @@ public class HbmRun {
                     .setParameter("fId", 1)
                     .executeUpdate();
 
+            session.createMutationQuery("delete from Student where id = :fId")
+                    .setParameter("fId", 3)
+                    .executeUpdate();
 
-
-
-
-
-
+            session.createMutationQuery("insert into Student (name, age, city) "
+                    + "select concat(s.name, 'New'), s.age + 5, s.city "
+                    + "from Student s where s.id = :fId")
+                    .setParameter("fId", 1)
+                    .executeUpdate();
 
             session.getTransaction().commit();
             session.close();

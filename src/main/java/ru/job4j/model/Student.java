@@ -3,6 +3,7 @@ package ru.job4j.model;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+
 @Entity
 @Table(name = "students")
 public class Student {
