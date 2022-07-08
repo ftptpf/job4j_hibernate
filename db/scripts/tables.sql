@@ -13,3 +13,11 @@ CREATE  TABLE IF NOT EXISTS candidates (
 );
 
 DROP TABLE candidates;
+
+CREATE TABLE IF NOT EXISTS cars (
+    id SERIAL PRIMARY KEY,
+    model VARCHAR(128),
+    created TIMESTAMP
+);
+
+DROP TABLE cars;
