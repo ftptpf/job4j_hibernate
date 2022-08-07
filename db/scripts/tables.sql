@@ -21,3 +21,17 @@ CREATE TABLE IF NOT EXISTS cars (
 );
 
 DROP TABLE cars;
+
+CREATE TABLE IF NOT EXISTS j_role (
+    id SERIAL PRIMARY KEY ,
+    name VARCHAR(2000)
+);
+
+CREATE TABLE IF NOT EXISTS j_user (
+    id SERIAL PRIMARY KEY ,
+    name VARCHAR(2000) ,
+    role_id INT NOT NULL REFERENCES j_role(id)
+);
+
+DROP  TABLE j_role;
+DROP TABLE j_user;
