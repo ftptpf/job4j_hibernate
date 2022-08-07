@@ -1,6 +1,6 @@
 package ru.job4j.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.util.Objects;
 

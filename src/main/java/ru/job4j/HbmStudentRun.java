@@ -21,29 +21,29 @@ public class HbmStudentRun {
             Student two = Student.of("Nikolay", 28, "Saint-Petersburg");
             Student three = Student.of("Nikita", 25, "Kaliningrad");
 
-            session.persist(one);
-            session.persist(two);
-            session.persist(three);
+            session.save(one);
+            session.save(two);
+            session.save(three);
 
-            Query<Student> query = session.createQuery("from Student ", Student.class);
+            Query query = session.createQuery("from Student");
             for (Object st : query.list()) {
                 System.out.println(st);
             }
-            Query<Student> studentQuery = session.createQuery("from Student s where s.id = :fId", Student.class);
+            Query studentQuery = session.createQuery("from Student s where s.id = :fId");
             studentQuery.setParameter("fId", 2);
-            System.out.println(studentQuery.getSingleResult());
+            System.out.println(studentQuery.uniqueResult());
 
-            session.createMutationQuery("update Student s set s.age = :newAge, s.city = :newCity where s.id = :fId")
+            session.createQuery("update Student s set s.age = :newAge, s.city = :newCity where s.id = :fId")
                     .setParameter("newAge", 23)
                     .setParameter("newCity", "Saratov")
                     .setParameter("fId", 1)
                     .executeUpdate();
 
-            session.createMutationQuery("delete from Student where id = :fId")
+            session.createQuery("delete from Student where id = :fId")
                     .setParameter("fId", 3)
                     .executeUpdate();
 
-            session.createMutationQuery("insert into Student (name, age, city) "
+            session.createQuery("insert into Student (name, age, city) "
                     + "select concat(s.name, 'New'), s.age + 5, s.city "
                     + "from Student s where s.id = :fId")
                     .setParameter("fId", 1)

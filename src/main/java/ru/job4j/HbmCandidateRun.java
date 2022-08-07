@@ -26,23 +26,23 @@ public class HbmCandidateRun {
             session.persist(two);
             session.persist(three);
 
-            Query<Candidate> query = session.createQuery("from Candidate", Candidate.class);
-            for (Candidate candidate : query.list()) {
+            Query query = session.createQuery("from Candidate");
+            for (Object candidate : query.list()) {
                 System.out.println(candidate);
             }
 
-            Query<Candidate> queryId = session.createQuery("from Candidate c where c.id = :fId", Candidate.class);
+            Query queryId = session.createQuery("from Candidate c where c.id = :fId");
             queryId.setParameter("fId", 1);
             System.out.println(queryId.getSingleResult());
 
-            Query<Candidate> queryName = session.createQuery("from Candidate c where c.name = :fName", Candidate.class);
+            Query queryName = session.createQuery("from Candidate c where c.name = :fName");
             queryName.setParameter("fName", "Ilya");
-            List<Candidate> candidateList = queryName.list();
-            for (Candidate candidate : candidateList) {
+            List candidateList = queryName.list();
+            for (Object candidate : candidateList) {
                 System.out.println(candidate);
             }
 
-            session.createMutationQuery(
+            session.createQuery(
                     "update Candidate c set c.name = :newName, c.experience = :newExperience, c.salary = :newSalary where c.id = :fId")
                     .setParameter("newName", "Ilya")
                     .setParameter("newExperience", "3 years")
@@ -50,7 +50,7 @@ public class HbmCandidateRun {
                     .setParameter("fId", 1)
                     .executeUpdate();
 
-            session.createMutationQuery("delete from Candidate where id = :fId")
+            session.createQuery("delete from Candidate where id = :fId")
                     .setParameter("fId", 3)
                     .executeUpdate();
 

@@ -18,7 +18,7 @@ public class HbmCarRun {
             session.beginTransaction();
 
             Car car = Car.of("Toyota", new Timestamp(1459510232000L), "Sidorov Ivan");
-            session.persist(car);
+            session.save(car);
 
             session.getTransaction().commit();
             session.close();
