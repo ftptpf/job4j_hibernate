@@ -33,5 +33,15 @@ CREATE TABLE IF NOT EXISTS j_user (
     role_id INT NOT NULL REFERENCES j_role(id)
 );
 
-DROP  TABLE j_role;
+DROP TABLE j_role;
 DROP TABLE j_user;
+
+CREATE TABLE IF NOT EXISTS car_brands (
+    id SERIAL PRIMARY KEY ,
+    name VARCHAR(128)
+);
+
+CREATE TABLE IF NOT EXISTS car_models (
+    id SERIAL PRIMARY KEY ,
+    name VARCHAR(128)
+);
