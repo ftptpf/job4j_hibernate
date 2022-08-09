@@ -45,3 +45,13 @@ CREATE TABLE IF NOT EXISTS car_models (
     id SERIAL PRIMARY KEY ,
     name VARCHAR(128)
 );
+
+CREATE TABLE IF NOT EXISTS authors (
+    id SERIAL PRIMARY KEY ,
+    name VARCHAR(128)
+);
+
+CREATE TABLE IF NOT EXISTS books (
+    id SERIAL PRIMARY KEY ,
+    name VARCHAR(128)
+);
