@@ -55,3 +55,14 @@ CREATE TABLE IF NOT EXISTS books (
     id SERIAL PRIMARY KEY ,
     name VARCHAR(128)
 );
+
+CREATE TABLE IF NOT EXISTS lazy_car_brands (
+    id SERIAL PRIMARY KEY ,
+    name VARCHAR(128)
+);
+
+CREATE TABLE IF NOT EXISTS lazy_car_models (
+    id SERIAL PRIMARY KEY ,
+    name VARCHAR(128) ,
+    brand_id INT NOT NULL REFERENCES lazy_car_brands(id)
+);
