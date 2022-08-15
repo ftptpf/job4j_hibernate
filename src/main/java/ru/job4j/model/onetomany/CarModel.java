@@ -1,24 +1,20 @@
-package ru.job4j.model;
+package ru.job4j.model.onetomany;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "j_user")
-public class User {
+@Table(name = "car_models")
+public class CarModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
 
-    public static User of(String name, Role role) {
-        User user = new User();
-        user.name = name;
-        user.role = role;
-        return user;
+    public static CarModel of(String name) {
+        CarModel model = new CarModel();
+        model.name = name;
+        return model;
     }
 
     public int getId() {
@@ -37,14 +33,6 @@ public class User {
         this.name = name;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -53,8 +41,8 @@ public class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        User user = (User) o;
-        return id == user.id;
+        CarModel model = (CarModel) o;
+        return id == model.id;
     }
 
     @Override

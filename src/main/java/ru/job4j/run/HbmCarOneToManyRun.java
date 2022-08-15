@@ -5,8 +5,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import ru.job4j.model.CarBrand;
-import ru.job4j.model.CarModel;
+import ru.job4j.model.onetomany.CarBrand;
+import ru.job4j.model.onetomany.CarModel;
 
 public class HbmCarOneToManyRun {
     public static void main(String[] args) {

@@ -1,20 +1,20 @@
-package ru.job4j.model;
+package ru.job4j.model.manytomany;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "car_models")
-public class CarModel {
+@Table(name = "books")
+public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 
-    public static CarModel of(String name) {
-        CarModel model = new CarModel();
-        model.name = name;
-        return model;
+    public static Book of(String name) {
+        Book book = new Book();
+        book.name = name;
+        return book;
     }
 
     public int getId() {
@@ -41,12 +41,12 @@ public class CarModel {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CarModel model = (CarModel) o;
-        return id == model.id;
+        Book book = (Book) o;
+        return id == book.id && Objects.equals(name, book.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name);
     }
 }

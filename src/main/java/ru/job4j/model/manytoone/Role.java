@@ -1,20 +1,20 @@
-package ru.job4j.model;
+package ru.job4j.model.manytoone;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "books")
-public class Book {
+@Table(name = "j_role")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 
-    public static Book of(String name) {
-        Book book = new Book();
-        book.name = name;
-        return book;
+    public static Role of(String name) {
+        Role role = new Role();
+        role.name = name;
+        return role;
     }
 
     public int getId() {
@@ -41,12 +41,12 @@ public class Book {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Book book = (Book) o;
-        return id == book.id && Objects.equals(name, book.name);
+        Role role = (Role) o;
+        return id == role.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id);
     }
 }

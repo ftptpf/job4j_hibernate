@@ -1,28 +1,24 @@
-package ru.job4j.model;
+package ru.job4j.model.manytoone;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "car_brands")
-public class CarBrand {
+@Table(name = "j_user")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private  String name;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CarModel> models = new ArrayList<>();
+    private String name;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
-    public static CarBrand of(String name) {
-        CarBrand brand = new CarBrand();
-        brand.name = name;
-        return  brand;
-    }
-
-    public void addCarModel(CarModel model) {
-        models.add(model);
+    public static User of(String name, Role role) {
+        User user = new User();
+        user.name = name;
+        user.role = role;
+        return user;
     }
 
     public int getId() {
@@ -41,12 +37,12 @@ public class CarBrand {
         this.name = name;
     }
 
-    public List<CarModel> getModels() {
-        return models;
+    public Role getRole() {
+        return role;
     }
 
-    public void setModels(List<CarModel> models) {
-        this.models = models;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -57,8 +53,8 @@ public class CarBrand {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CarBrand brand = (CarBrand) o;
-        return id == brand.id;
+        User user = (User) o;
+        return id == user.id;
     }
 
     @Override

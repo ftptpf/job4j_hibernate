@@ -5,8 +5,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import ru.job4j.model.Author;
-import ru.job4j.model.Book;
+import ru.job4j.model.manytomany.Author;
+import ru.job4j.model.manytomany.Book;
 
 public class HbmManyToManyRun {
     public static void main(String[] args) {
