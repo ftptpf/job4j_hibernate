@@ -27,5 +27,8 @@
         <mapping class="ru.job4j.model.manytomany.Book" />
         <mapping class="ru.job4j.model.lazy.CarModelL" />
         <mapping class="ru.job4j.model.lazy.CarBrandL" />
+        <mapping class="ru.job4j.model.select.CandidateS" />
+        <mapping class="ru.job4j.model.select.BaseS" />
+        <mapping class="ru.job4j.model.select.VacancyS" />
     </session-factory>
 </hibernate-configuration>
