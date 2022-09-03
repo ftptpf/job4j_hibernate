@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS orders (
-    id SERIAL ,
+    id SERIAL PRIMARY KEY ,
     name VARCHAR(50) ,
     description VARCHAR(50) ,
-    created TIMESTAMP ,
-    PRIMARY KEY (id)
+    created TIMESTAMP
 );

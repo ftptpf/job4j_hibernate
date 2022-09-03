@@ -56,11 +56,24 @@ public class Order {
             return false;
         }
         Order order = (Order) o;
-        return id == order.id;
+        return id == order.id
+                && Objects.equals(name, order.name)
+                && Objects.equals(description, order.description)
+                && Objects.equals(created, order.created);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name, description, created);
+    }
+
+    @Override
+    public String toString() {
+        return "Order{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", description='" + description + '\''
+                + ", created=" + created
+                + '}';
     }
 }

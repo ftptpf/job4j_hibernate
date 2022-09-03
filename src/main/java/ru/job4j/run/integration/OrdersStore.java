@@ -27,9 +27,9 @@ public class OrdersStore {
             ps.setString(2, order.getDescription());
             ps.setTimestamp(3, order.getCreated());
             ps.execute();
-            ResultSet rs = ps.getResultSet();
-            if (rs.next()) {
-                order.setId(rs.getInt(1));
+            ResultSet id = ps.getGeneratedKeys();
+            if (id.next()) {
+                order.setId(id.getInt(1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -37,24 +37,19 @@ public class OrdersStore {
         return order;
     }
 
-/*    public Order update(Order order) {
+    public void update(Order order) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
-                     "UPDATE orders SET ",
-                     PreparedStatement.RETURN_GENERATED_KEYS)) {
+                     "UPDATE orders SET name = ?, description = ?, created = ? WHERE id = ?")) {
             ps.setString(1, order.getName());
             ps.setString(2, order.getDescription());
             ps.setTimestamp(3, order.getCreated());
-            ps.execute();
-            ResultSet rs = ps.getResultSet();
-            if (rs.next()) {
-                order.setId(rs.getInt(1));
-            }
+            ps.setInt(4, order.getId());
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return order;
-    }*/
+    }
 
     public Collection<Order> findAll() {
         List<Order> list = new ArrayList<>();
