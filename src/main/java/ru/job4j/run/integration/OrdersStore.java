@@ -94,23 +94,27 @@ public class OrdersStore {
         return order;
     }
 
-    public Order findByName(String name) {
-        Order order = null;
+    public Collection<Order> findByName(String name) {
+        List<Order> list = new ArrayList<>();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT * FROM orders WHERE name = ?")) {
+             PreparedStatement ps = cn.prepareStatement(
+                     "SELECT * FROM orders WHERE name = ?")) {
             ps.setString(1, name);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                order = new Order(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("description"),
-                        rs.getTimestamp(4)
-                );
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(
+                            new Order(
+                                    rs.getInt("id"),
+                                    rs.getString("name"),
+                                    rs.getString("description"),
+                                    rs.getTimestamp(4)
+                            )
+                    );
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return order;
+        return list;
     }
 }

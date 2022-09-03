@@ -98,13 +98,16 @@ public class OrdersStoreTest {
     @Test
     public void whenFindByName() {
         OrdersStore store = new OrdersStore(pool);
-        Order order1 = Order.of("name", "description");
-        Order order2 = Order.of("NO-name", "description");
+        Order order1 = Order.of("name", "description1");
+        Order order2 = Order.of("NO-name", "description2");
+        Order order3 = Order.of("name", "description3");
         store.save(order1);
         store.save(order2);
-        order1.setId(1);
-        Order orderFromDb = store.findByName("name");
+        store.save(order3);
+        List<Order> all = (List<Order>) store.findByName("name");
 
-        assertEquals(order1, orderFromDb);
+        assertEquals(2, all.size());
+        assertEquals("name", all.get(0).getName());
+        assertEquals("name", all.get(1).getName());
     }
 }
